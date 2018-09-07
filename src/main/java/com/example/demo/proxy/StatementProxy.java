@@ -54,11 +54,11 @@ public class StatementProxy implements InvocationHandler {
 
     private void printResult(ResultSet resultSet) {
         try {
+            ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
             log.info("【Result Set】");
             Integer count = 1;
             while (resultSet.next()) {
                 log.info("*Record:{}*", count++);
-                ResultSetMetaData resultSetMetaData = resultSet.getMetaData();
                 for (int i = 0; i < resultSetMetaData.getColumnCount(); i++) {
                     String name = resultSetMetaData.getColumnName(i + 1);
                     Object value = resultSet.getObject(i + 1);
@@ -69,7 +69,5 @@ public class StatementProxy implements InvocationHandler {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        System.out.println();
-
     }
 }
